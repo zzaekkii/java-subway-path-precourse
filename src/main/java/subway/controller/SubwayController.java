@@ -1,9 +1,17 @@
 package subway.controller;
 
+import static subway.domain.FindCommand.BACK;
+import static subway.domain.FindCommand.SHORT_DISTANCE;
+import static subway.domain.FindCommand.SHORT_TIME;
+import static subway.domain.MainCommand.FIND_PATH;
+import static subway.domain.MainCommand.QUIT;
+
 import java.util.Arrays;
 import java.util.HashSet;
+import subway.domain.FindCommand;
 import subway.domain.Line;
 import subway.domain.LineRepository;
+import subway.domain.MainCommand;
 import subway.domain.Path;
 import subway.domain.PathRepository;
 import subway.domain.Station;
@@ -23,10 +31,87 @@ public class SubwayController {
     }
 
     public void run() {
-        Subway subway = initializeSubway();
+        while (true) {
+            MainCommand mainCommand = getMainCommand();
+            if (mainCommand.equals(FIND_PATH)) {
+                findPath();
+            }
 
+            if (mainCommand.equals(QUIT)) {
+                break;
+            }
+        }
     }
 
+    private void findPath() {
+        while (true) {
+            try {
+                FindCommand findCommand = getFindCommand();
+                if (findCommand.equals(BACK)) {
+                    return;
+                }
+
+                Station departureStation = getDepartureStation();
+                Station arrivalStation = getArrivalStation();
+                if (findCommand.equals(SHORT_DISTANCE)) {
+                    SubwayRepository.subway().
+                }
+
+                if (findCommand.equals(SHORT_TIME)) {
+
+                }
+
+                return;
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private Station getDepartureStation() {
+        while (true) {
+            outputView.printDepartureStationRequest();
+            try {
+                return inputView.readStation();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private Station getArrivalStation() {
+        while (true) {
+            outputView.printArrivalStationRequest();
+            try {
+                return inputView.readStation();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+    private MainCommand getMainCommand() {
+        while (true) {
+            outputView.printMainCommandRequest();
+            try {
+                return inputView.readMainCommand();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
+
+    private FindCommand getFindCommand() {
+        while (true) {
+            outputView.printFindCommandRequest();
+            try {
+                return inputView.readFindCommand();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
 
     private Subway initializeSubway() {
         initializeLines();
