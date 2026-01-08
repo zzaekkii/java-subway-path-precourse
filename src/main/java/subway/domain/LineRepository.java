@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import subway.exception.ErrorMessage;
 
 public class LineRepository {
     private static final List<Line> lines = new ArrayList<>();
@@ -22,5 +23,14 @@ public class LineRepository {
 
     public static void deleteAll() {
         lines.clear();
+    }
+
+    public static Line getLineFromName(String name) {
+        for (Line line : lines) {
+            if (line.getName().equals(name)) {
+                return line;
+            }
+        }
+        throw new IllegalArgumentException(ErrorMessage.LINE_NOT_FOUND.getMessage());
     }
 }
