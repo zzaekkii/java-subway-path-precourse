@@ -15,7 +15,9 @@ public enum FindCommand {
 
     public static FindCommand fromString(String value) {
         for (FindCommand command : FindCommand.values()) {
-            return command;
+            if (command.value.equals(value)) {
+                return command;
+            }
         }
         throw new IllegalArgumentException(ErrorMessage.INVALID_COMMAND.getMessage());
     }

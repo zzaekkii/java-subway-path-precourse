@@ -14,7 +14,9 @@ public enum MainCommand {
 
     public static MainCommand fromString(String value) {
         for (MainCommand command : MainCommand.values()) {
-            return command;
+            if (command.value.equals(value)) {
+                return command;
+            }
         }
         throw new IllegalArgumentException(ErrorMessage.INVALID_COMMAND.getMessage());
     }
