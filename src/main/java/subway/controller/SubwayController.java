@@ -59,6 +59,8 @@ public class SubwayController {
                 if (findCommand.equals(FindCommand.SHORT_TIME)) {
                     outputView.printResult(SubwayRepository.subway().findPath(PathType.SHORT_TIME, start, end));
                 }
+
+                return;
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
@@ -146,7 +148,7 @@ public class SubwayController {
             for (String stationFor2 : Arrays.asList("교대역", "강남역", "역삼역")) {
                 StationRepository.addStation(new Station(LineRepository.getLineFromName("2호선"), stationFor2));
             }
-            for (String stationFor3 : Arrays.asList("교대역", "남부터미널", "양재역", "매봉역")) {
+            for (String stationFor3 : Arrays.asList("교대역", "남부터미널역", "양재역", "매봉역")) {
                 StationRepository.addStation(new Station(LineRepository.getLineFromName("3호선"), stationFor3));
             }
             for (String stationForNew : Arrays.asList("강남역", "양재역", "양재시민의숲역")) {
