@@ -7,6 +7,7 @@ public enum ErrorMessage {
     LINE_NOT_FOUND("존재하지 않는 노선입니다."),
     STATION_NOT_FOUND("존재하지 않는 역입니다."),
     PATH_NOT_FOUND("두 역 사이의 경로가 존재하지 않습니다."),
+    SAME_STATIONS("출발역과 도착역이 동일합니다."),
     ETC("작업 중 오류가 발생했습니다.");
 
 

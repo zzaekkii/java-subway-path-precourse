@@ -1,6 +1,11 @@
 package subway.view;
 
+import subway.domain.PathResult;
+import subway.domain.Station;
+
 public class OutputView {
+
+    private static final String RESULT_PREFIX = "[INFO] ";
 
     public void printErrorMessage(String message) {
         System.out.println(message);
@@ -30,5 +35,17 @@ public class OutputView {
 
     public void printArrivalStationRequest() {
         System.out.println("\n## 도착역을 입력하세요.");
+    }
+
+    public void printResult(PathResult result) {
+        System.out.println("\n## 조회 결과");
+        System.out.println(RESULT_PREFIX + "---");
+        System.out.println(RESULT_PREFIX + "총 거리: " + result.getTotalKilometers() + "Km");
+        System.out.println(RESULT_PREFIX + "총 소요 시간: " + result.getTotalMinutes() + "분");
+        System.out.println(RESULT_PREFIX + "---");
+        for (Station station : result.getStations()) {
+            System.out.println(RESULT_PREFIX + station.getName());
+        }
+        System.out.println();
     }
 }

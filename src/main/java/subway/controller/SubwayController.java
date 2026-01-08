@@ -1,8 +1,5 @@
 package subway.controller;
 
-import static subway.domain.FindCommand.BACK;
-import static subway.domain.FindCommand.SHORT_DISTANCE;
-import static subway.domain.FindCommand.SHORT_TIME;
 import static subway.domain.MainCommand.FIND_PATH;
 import static subway.domain.MainCommand.QUIT;
 
@@ -14,6 +11,7 @@ import subway.domain.LineRepository;
 import subway.domain.MainCommand;
 import subway.domain.Path;
 import subway.domain.PathRepository;
+import subway.domain.PathType;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.Subway;
@@ -47,21 +45,19 @@ public class SubwayController {
         while (true) {
             try {
                 FindCommand findCommand = getFindCommand();
-                if (findCommand.equals(BACK)) {
+                if (findCommand.equals(FindCommand.BACK)) {
                     return;
                 }
 
-                Station departureStation = getDepartureStation();
-                Station arrivalStation = getArrivalStation();
-                if (findCommand.equals(SHORT_DISTANCE)) {
-                    SubwayRepository.subway().
+                Station start = getDepartureStation();
+                Station end = getArrivalStation();
+                if (findCommand.equals(FindCommand.SHORT_DISTANCE)) {
+                    outputView.printResult(SubwayRepository.subway().findPath(PathType.SHORT_DISTANCE, start, end));
                 }
 
-                if (findCommand.equals(SHORT_TIME)) {
-
+                if (findCommand.equals(FindCommand.SHORT_TIME)) {
+                    outputView.printResult(SubwayRepository.subway().findPath(PathType.SHORT_TIME, start, end));
                 }
-
-                return;
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }

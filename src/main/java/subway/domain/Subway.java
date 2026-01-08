@@ -6,6 +6,7 @@ import java.util.Map;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
+import subway.exception.ErrorMessage;
 
 public class Subway {
     private final Map<PathType, DijkstraShortestPath> shortPaths;
@@ -18,6 +19,14 @@ public class Subway {
         this.shortPaths = paths;
     }
 
+    public PathResult findPath(PathType pathType, Station start, Station end) {
+        if (start.equals(end)) {
+            throw new IllegalArgumentException(ErrorMessage.SAME_STATIONS.getMessage());
+        }
+
+        shortPaths.get(pathType);
+
+    }
 
     private DijkstraShortestPath initializePathsByDistance() {
         WeightedMultigraph<Station, DefaultWeightedEdge> paths = new WeightedMultigraph(DefaultWeightedEdge.class);
