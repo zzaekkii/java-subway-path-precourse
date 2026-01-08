@@ -29,6 +29,7 @@ public class SubwayController {
     }
 
     public void run() {
+        initializeSubway();
         while (true) {
             MainCommand mainCommand = getMainCommand();
             if (mainCommand.equals(FIND_PATH)) {
@@ -109,12 +110,11 @@ public class SubwayController {
         }
     }
 
-    private Subway initializeSubway() {
+    private void initializeSubway() {
         initializeLines();
         initializeStations();
         initializePaths();
         SubwayRepository.addSubway(new Subway());
-        return SubwayRepository.subway();
     }
 
     private void initializePaths() {

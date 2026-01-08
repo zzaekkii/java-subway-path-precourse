@@ -1,7 +1,9 @@
 package subway.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import subway.exception.ErrorMessage;
@@ -17,12 +19,13 @@ public class PathRepository {
         paths.add(path);
     }
 
-    public static Path getPath(Set<Station> stations) {
+    public static Path getPath(Station a, Station b) {
+        Set<Station> stations = new HashSet<>(Arrays.asList(a, b));
         for (Path path : paths) {
             if (path.getStations().equals(stations)) {
                 return path;
             }
         }
-        throw new IllegalArgumentException(ErrorMessage.STATION_NOT_FOUND.getMessage());
+        throw new IllegalArgumentException(ErrorMessage.PATH_NOT_FOUND.getMessage());
     }
 }

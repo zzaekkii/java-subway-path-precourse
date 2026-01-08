@@ -24,8 +24,16 @@ public class Subway {
             throw new IllegalArgumentException(ErrorMessage.SAME_STATIONS.getMessage());
         }
 
-        shortPaths.get(pathType);
+        List<Station> stations = shortPaths.get(pathType).getPath(start, end).getVertexList();
+        int totalKilometers = 0;
+        int totalMinutes = 0;
+        for (int i = 0; i < stations.size() - 1; i++) {
+            Path path = PathRepository.getPath(stations.get(i), stations.get(i + 1));
+            totalKilometers += path.getKiloMeters();
+            totalMinutes += path.getMinutes();
+        }
 
+        return new PathResult(totalKilometers, totalMinutes, stations);
     }
 
     private DijkstraShortestPath initializePathsByDistance() {
